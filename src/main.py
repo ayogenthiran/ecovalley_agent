@@ -24,7 +24,7 @@ app.mount("/static", StaticFiles(directory="src/static"), name="static")
 # Include routers
 app.include_router(
     material.router,
-    prefix="/api/v1/materials",
+    prefix="/api/v1",
     tags=["materials"]
 )
 
