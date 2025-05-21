@@ -173,7 +173,8 @@ class RecommendationAgent(BaseAgent):
             )
             
             # Cost score (0-100, normalized)
-            norm_cost = min(float(cost_analysis["direct_costs"]["material_costs"][material]) / MAX_COST, 1.0)
+            material_cost = cost_analysis["direct_costs"].get("material_costs", {}).get(material, 0.0)
+            norm_cost = min(float(material_cost) / MAX_COST, 1.0)
             cost_score = 100 - (norm_cost * 100)
             
             # Recyclability score (0-100)
