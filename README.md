@@ -1,35 +1,149 @@
-# EcoValley
+# EcoValley Agent System
 
-## Inspiration
+EcoValley is an agent-based web application for sustainable material selection. It leverages advanced AI agents to analyze environmental impact, cost, and other sustainability factors to recommend optimal materials for your projects.
 
-As sustainability becomes a critical aspect of modern projects, we were inspired to create a tool that helps users make informed decisions about the materials they use. We recognized that many sustainability tools are geared toward large corporations with significant resources, leaving smaller businesses and individuals with fewer options. EcoValley was created to bridge this gap, making eco-conscious material selection accessible to everyone. Our goal is to empower individuals and small businesses to reduce their environmental impact just as effectively as larger companies, without the need for costly, complex software.
+---
 
-## What it does
+## Features
+- **Agent-based architecture**: Modular agents for environmental impact, cost analysis, recommendations, and workflow coordination.
+- **Retrieval-Augmented Generation (RAG)**: Integrates structured data and AI reasoning.
+- **OpenAI GPT-4o-mini integration**: For advanced reasoning and natural language explanations.
+- **RESTful API**: Easily integrate with other systems or frontends.
+- **Extensible**: Add new agents or data sources as needed.
 
-EcoValley takes a user’s natural language input, such as describing the type of product they are looking to create, and uses the Cohere LLM API to suggest three lists of material options. Each list includes the materials best suited for the project, along with the amount required in kilograms.
+---
 
-Once the material options are generated, EcoValley performs further calculations using data from our custom research. We built a CSV file that includes essential metrics for each material, such as energy used in production, carbon emissions, water use, and cost per kilogram. Using this data, EcoValley calculates the overall environmental impact and financial costs of the selected materials, giving users a complete breakdown to make the most sustainable choice.
+## Project Structure
+```
+ecovalley/
+├── src/
+│   ├── agents/
+│   │   ├── base_agent.py
+│   │   ├── environmental_impact_agent.py
+│   │   ├── cost_analysis_agent.py
+│   │   ├── recommendation_agent.py
+│   │   └── material_selection_agent.py
+│   ├── api/
+│   │   └── endpoints/
+│   │       └── material.py
+│   ├── config/
+│   │   └── settings.py
+│   ├── main.py
+│   └── ...
+├── data/
+│   └── materials.csv
+├── tests/
+│   └── test_agents.py
+├── .env
+├── requirements.txt
+└── README.md
+```
 
-## How we built it
+---
 
-We developed EcoValley using a combination of full-stack web development tools. The front-end was built with Flask for a clean, user-friendly interface, while the back-end integrates the Cohere LLM API for material selection. The LLM takes user inputs, interprets their needs, and returns structured data in the form of materials and their required quantities.
+## Installation
 
-Once we have the materials, we use our research-backed data to calculate the energy used, carbon emissions produced, water consumption, and cost, mostly with Pandas. This data allows us to present users with an easy-to-compare analysis for each set of materials.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/ecovalley.git
+   cd ecovalley
+   ```
 
-## Challenges we ran into
+2. **Set up a virtual environment**
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
 
-One of the main challenges was ensuring that the output from the Cohere LLM API was structured in a way that could be processed programmatically. Initially, it was difficult to get well-structured data from the LLM, as it required fine-tuning to return material options in a consistent format that we could use for calculations. This involved multiple iterations on the prompt and testing various temperature settings to improve the quality and consistency of the results.
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Another challenge was compiling accurate and reliable data for our materials CSV file. We conducted extensive research to ensure that the values for energy use, carbon emissions, water use, and cost were accurate and up-to-date for each material.
+4. **Configure environment variables**
+   - Create a `.env` file in the project root:
+     ```env
+     OPENAI_API_KEY=your_openai_api_key_here
+     DATABASE_URL=sqlite:///./ecovalley.db
+     ```
 
-## Accomplishments that we're proud of
+---
 
-We’re proud of how EcoValley makes sustainable material selection accessible to average users and small businesses, not just large corporations with the resources to afford expensive software like Ansys EcoAudit. By integrating the Cohere LLM API and our custom materials database, we’ve built a tool that simplifies complex material sourcing decisions, offering eco-friendly options to anyone looking to reduce their environmental footprint. Our platform empowers individuals and small businesses to make informed, sustainable choices without needing high-cost, industry-specific software.
+## Running the Application
 
-## What we learned
+Start the FastAPI server:
+```bash
+python src/main.py
+```
 
-This project taught us how to leverage AI-powered language models to create tangible, impactful tools. We gained insights into handling unstructured outputs from LLMs and converting them into usable formats for further analysis. Additionally, we learned the importance of thorough research in creating a reliable database that supports accurate calculations.
+The API will be available at [http://localhost:8000](http://localhost:8000)
 
-## What's next for EcoValley
+---
 
-Moving forward, we plan to expand the material database and offer more detailed comparisons, including factors like lifecycle analysis and recyclability. We also aim to collaborate with material suppliers, allowing users to purchase sustainable materials directly through the platform. Another goal is to enhance our AI’s understanding of user input, making it even more intuitive and user-friendly.
+## API Documentation
+
+Interactive API docs are available at:
+- Swagger UI: [http://localhost:8000/docs](http://localhost:8000/docs)
+- ReDoc: [http://localhost:8000/redoc](http://localhost:8000/redoc)
+
+### Main Endpoint
+#### `POST /api/v1/materials/suggest`
+Suggests sustainable materials based on your requirements.
+
+**Request Body Example:**
+```json
+{
+  "materials": ["Bamboo", "Hemp"],
+  "quantities": [100, 200],
+  "budget": 5000,
+  "preferences": {
+    "environmental_priority": 0.4,
+    "cost_priority": 0.3,
+    "recyclability_priority": 0.15,
+    "biodegradability_priority": 0.15
+  }
+}
+```
+
+**Response Example:**
+```json
+{
+  "environmental_impact": { ... },
+  "cost_analysis": { ... },
+  "recommendation": { ... },
+  "conversation_history": [ ... ]
+}
+```
+
+---
+
+## Testing
+
+Run the test suite with:
+```bash
+pytest tests/test_agents.py -v
+```
+
+---
+
+## Customization & Extensibility
+- **Add new agents**: Implement new agent classes in `src/agents/` and integrate them in `material_selection_agent.py`.
+- **Update materials database**: Edit `data/materials.csv` to add or modify material properties.
+- **Change model or API keys**: Update `.env` and `src/config/settings.py` as needed.
+
+---
+
+## Troubleshooting
+- Ensure your `.env` file is present and contains a valid OpenAI API key.
+- If you encounter import errors, make sure you are running commands from the project root and that your virtual environment is activated.
+- For SSL/OpenAI issues, ensure your Python and dependencies are up to date.
+
+---
+
+## License
+MIT License
+
+---
+
+## Contact
+For questions or contributions, please open an issue or pull request on GitHub.

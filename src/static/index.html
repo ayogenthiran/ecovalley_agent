@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoValley - Sustainable Material Selection</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">EcoValley</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Sustainable Material Selection</h1>
+            <p>Make eco-conscious decisions with AI-powered recommendations</p>
+        </section>
+
+        <section class="material-form">
+            <h2>Get Material Recommendations</h2>
+            <form id="materialForm">
+                <div class="form-group">
+                    <label for="materials">Materials (comma-separated)</label>
+                    <input type="text" id="materials" placeholder="e.g., Bamboo, Hemp, Recycled PET">
+                </div>
+
+                <div class="form-group">
+                    <label for="quantities">Quantities in kg (comma-separated)</label>
+                    <input type="text" id="quantities" placeholder="e.g., 100, 200, 150">
+                </div>
+
+                <div class="form-group">
+                    <label for="budget">Budget (USD)</label>
+                    <input type="number" id="budget" placeholder="e.g., 5000">
+                </div>
+
+                <div class="preferences">
+                    <h3>Preferences (0-1)</h3>
+                    <div class="form-group">
+                        <label for="envPriority">Environmental Impact</label>
+                        <input type="range" id="envPriority" min="0" max="1" step="0.1" value="0.4">
+                        <span class="value">0.4</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="costPriority">Cost</label>
+                        <input type="range" id="costPriority" min="0" max="1" step="0.1" value="0.3">
+                        <span class="value">0.3</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recyclePriority">Recyclability</label>
+                        <input type="range" id="recyclePriority" min="0" max="1" step="0.1" value="0.15">
+                        <span class="value">0.15</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bioPriority">Biodegradability</label>
+                        <input type="range" id="bioPriority" min="0" max="1" step="0.1" value="0.15">
+                        <span class="value">0.15</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">Get Recommendations</button>
+            </form>
+        </section>
+
+        <section class="results" id="results">
+            <h2>Recommendations</h2>
+            <div class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing materials...</p>
+            </div>
+            <div class="results-content" style="display: none;">
+                <div class="recommendations">
+                    <h3>Recommended Materials</h3>
+                    <div id="recommendedMaterials"></div>
+                </div>
+                <div class="analysis">
+                    <h3>Environmental Impact</h3>
+                    <div id="environmentalImpact"></div>
+                </div>
+                <div class="analysis">
+                    <h3>Cost Analysis</h3>
+                    <div id="costAnalysis"></div>
+                </div>
+                <div class="analysis">
+                    <h3>Trade-off Analysis</h3>
+                    <div id="tradeOffAnalysis"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 EcoValley. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html> 

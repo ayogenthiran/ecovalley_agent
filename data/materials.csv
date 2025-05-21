@@ -1,0 +1,11 @@
+material_name,energy_per_kg,carbon_per_kg,water_per_kg,cost_per_kg,recyclability,biodegradability
+Bamboo,2.5,0.8,120,3.5,High,High
+Hemp,3.2,1.1,150,4.2,High,High
+Recycled PET,8.5,2.3,80,2.8,High,Low
+PLA (Polylactic Acid),6.8,1.9,200,5.5,Medium,High
+Cork,1.8,0.6,90,7.2,High,High
+Recycled Aluminum,12.5,3.2,50,4.8,High,Low
+Recycled Paper,4.2,1.2,180,2.2,High,High
+Mushroom Mycelium,2.1,0.7,100,6.5,Medium,High
+Recycled Glass,5.5,1.5,70,3.2,High,Low
+Organic Cotton,4.8,1.4,250,8.5,Medium,High 
